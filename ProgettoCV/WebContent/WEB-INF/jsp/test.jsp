@@ -19,7 +19,7 @@ td {
 	border: 2px solid #333;
 	height: 100px;
 	width: 100px;
-	text-align: center;
+	test-align: center;
 	vertical-align: middle;
 	font-size: 70px;
 	cursor: pointer;
@@ -28,7 +28,6 @@ td {
 table {
 	position: relative;
 	margin-left: 25%;
-	color: blue;
 }
 
 table tr:first-child td {
@@ -214,28 +213,28 @@ div.absolute {
 				<div class="col-md-8">
 					<div id="DivTris" class="cv-block">
 						<div class="paragrafo">
-							<table id="tabletris">
+							<table>
 								<tr>
-									<td onclick="javaTris(this.id)" class="celle" id="cella0"></td>
-									<td onclick="javaTris(this.id)" class="celle" id="cella1"></td>
-									<td onclick="javaTris(this.id)" class="celle" id="cella2"></td>
+									<td onclick="javaTris()" class="celle" id="cella0"></td>
+									<td onclick="javaTris()" class="celle" id="cella1"></td>
+									<td onclick="javaTris()" class="celle" id="cella2"></td>
 								</tr>
 								<tr>
-									<td onclick="javaTris(this.id)" class="celle" id="cella3"></td>
-									<td onclick="javaTris(this.id)" class="celle" id="cella4"></td>
-									<td onclick="javaTris(this.id)" class="celle" id="cella5"></td>
+									<td onclick="javaTris()" class="celle" id="cella3"></td>
+									<td onclick="javaTris()" class="celle" id="cella4"></td>
+									<td onclick="javaTris()" class="celle" id="cella5"></td>
 								</tr>
 								<tr>
-									<td onclick="javaTris(this.id)" class="celle" id="cella6"></td>
-									<td onclick="javaTris(this.id)" class="celle" id="cella7"></td>
-									<td onclick="javaTris(this.id)" class="celle" id="cella8"></td>
+									<td onclick="javaTris()" class="celle" id="cella6"></td>
+									<td onclick="javaTris()" class="celle" id="cella7"></td>
+									<td onclick="javaTris()" class="celle" id="cella8"></td>
 								</tr>
 							</table>
 							<div class="relative">
 								<button class="btn btn-outline-primary" id="b_tris_gioca"
-									onClick="rigioca()">Rigioca</button>
+									onClick="Gioca()">Rigioca</button>
 							</div>
-							<div class="divplayer" id="player" >giocatore1</div>
+							<div class="divplayer">p1</div>
 						</div>
 					</div>
 					<div id="DivSudoku" class="cv-block">
@@ -245,7 +244,6 @@ div.absolute {
 					</div>
 				</div>
 			</div>
-			<div class="endgame" id="winner"></div>
 		</div>
 	</div>
 
@@ -262,6 +260,7 @@ div.absolute {
 			var y = document.getElementById("DivSudoku");
 			y.style.display = "none";
 			x.style.display = "block";
+
 		}
 	</script>
 	<script>
@@ -277,40 +276,13 @@ div.absolute {
 		src="http://netdna.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 	<script type="text/javascript"></script>
 	<script>
-		function javaTris(clicked_id) {
-			var giocatore = document.getElementById("player").innerHTML;				
-			var cella = clicked_id;			
-			if (giocatore === "giocatore1"){		
-				document.getElementById(clicked_id).innerHTML = "X";
-				document.getElementById(clicked_id).disabled = true;	
-				document.getElementById("player").innerHTML = "giocatore2";				
-			}else{
-				document.getElementById(clicked_id).innerHTML = "O";
-				document.getElementById(clicked_id).disabled = true;
-				document.getElementById("player").innerHTML = "giocatore1";
-			}			
+		function javaTris() {
+			
 			$.post('GamesController', {
-				nomeGioco : "tris",
-				nomeCella : cella,
-				giocatore : giocatore
+				name : "Donald Duck",
+				city : "Duckburg"
 			}, function(data, status) {
-					winner : ${winner};
-			});
-		}
-	</script>
-	<script> 
-		function rigioca(){
-		  var x = document.getElementsByClassName("celle");
-		  var i;
-		  for (i = 0; i < x.length; i++) {
-		    x[i].innerHTML = "";
-		    x[i].disabled = false;
-		  }
-			$.post('GamesController', {
-				nomeGioco : "tris",
-				giocatore : "reset"
-			}, function(data, status) {
-				
+				alert("ciao");
 			});
 		}
 	</script>

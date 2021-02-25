@@ -25,17 +25,17 @@ xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/
         <url-pattern>/index.jsp</url-pattern>
         <url-pattern>/games.html</url-pattern>
         <url-pattern>*.html</url-pattern>
-
-    </servlet-mapping>
-  
-       <servlet>
-        <servlet-name>TrisController</servlet-name>
-        <servlet-class>
-            com.curriculum.controller.TrisController
-        </servlet-class>
+        </servlet-mapping>
+        
+        <servlet>
+        <description>GamesController</description>
+        <display-name>GamesController</display-name>
+        <servlet-name>GamesController</servlet-name>
+        <servlet-class>com.curriculum.controller.GamesController</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>TrisController</servlet-name>
-        <url-pattern>/TrisController</url-pattern>
+        <servlet-name>GamesController</servlet-name>
+        <url-pattern>/GamesController</url-pattern>
     </servlet-mapping>
+    
 </web-app>
