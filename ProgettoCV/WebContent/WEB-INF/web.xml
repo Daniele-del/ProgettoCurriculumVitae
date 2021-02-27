@@ -35,7 +35,7 @@ xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/
     </servlet>
     <servlet-mapping>
         <servlet-name>GamesController</servlet-name>
-        <url-pattern>/GamesController</url-pattern>
+        <url-pattern>/GamesController/*</url-pattern>
     </servlet-mapping>
     
 </web-app>

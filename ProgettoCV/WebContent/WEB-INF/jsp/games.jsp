@@ -1,3 +1,4 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:svg="http://www.w3.org/2000/svg">
@@ -50,21 +51,26 @@ table tr td:last-child {
 .endgame {
 	display: none;
 	width: 200px;
-	top: 120px;
-	background-color: rgba(205, 133, 63, 0.8);
+	top: 100px;
+	background-color: #99ccff;
 	position: absolute;
-	left: 50%;
-	margin-left: -100px;
 	padding-top: 50px;
 	padding-bottom: 50px;
+	padding-left:15px;
+	padding-right:15px;
 	text-align: center;
 	border-radius: 5px;
 	color: black;
 	font-size: 2em;
+	left: 33%;
+	background-clip: border-box;
+	border: 0 solid rgba(0, 0, 0, .125);
+	border-radius: .25rem;
 }
 
 .divplayer {
 	display: none;
+
 }
 
 body {
@@ -133,7 +139,6 @@ body {
 	padding: 20px 0;
 	text-align: center;
 	margin-top: 20px;
-	width: 100%;
 }
 
 #DivSudoku {
@@ -210,6 +215,7 @@ div.absolute {
 					<div class="card mt-3">
 						<button class="btn btn-outline-primary" onclick="showSudoku()">Sudoku</button>
 					</div>
+					<div id="prova"></div>
 				</div>
 				<div class="col-md-8">
 					<div id="DivTris" class="cv-block">
@@ -231,11 +237,12 @@ div.absolute {
 									<td onclick="javaTris(this.id)" class="celle" id="cella8"></td>
 								</tr>
 							</table>
+							<div class="endgame" id="win"></div>
 							<div class="relative">
 								<button class="btn btn-outline-primary" id="b_tris_gioca"
 									onClick="rigioca()">Rigioca</button>
 							</div>
-							<div class="divplayer" id="player" >giocatore1</div>
+							<div class="divplayer" id="player">Giocatore 1</div>
 						</div>
 					</div>
 					<div id="DivSudoku" class="cv-block">
@@ -245,7 +252,7 @@ div.absolute {
 					</div>
 				</div>
 			</div>
-			<div class="endgame" id="winner"></div>
+
 		</div>
 	</div>
 
@@ -278,39 +285,64 @@ div.absolute {
 	<script type="text/javascript"></script>
 	<script>
 		function javaTris(clicked_id) {
-			var giocatore = document.getElementById("player").innerHTML;				
-			var cella = clicked_id;			
-			if (giocatore === "giocatore1"){		
+			var giocatore = document.getElementById("player").innerHTML;
+			var cella = clicked_id;
+			if (giocatore === "Giocatore 1") {
 				document.getElementById(clicked_id).innerHTML = "X";
-				document.getElementById(clicked_id).disabled = true;	
-				document.getElementById("player").innerHTML = "giocatore2";				
-			}else{
+				document.getElementById(clicked_id).disabled = true;
+				document.getElementById("player").innerHTML = "Giocatore 2";
+			} else {
 				document.getElementById(clicked_id).innerHTML = "O";
 				document.getElementById(clicked_id).disabled = true;
-				document.getElementById("player").innerHTML = "giocatore1";
-			}			
+				document.getElementById("player").innerHTML = "Giocatore 1";
+			}
+
 			$.post('GamesController', {
 				nomeGioco : "tris",
 				nomeCella : cella,
 				giocatore : giocatore
-			}, function(data, status) {
-					winner : ${winner};
-			});
-		}
+			}).done(function(data) {
+
+				var vincitore = data;
+
+				if (vincitore === "Giocatore 1" || vincitore === "Giocatore 2") {
+					var x = document.getElementsByClassName("celle");
+					var i;
+					for (i = 0; i < x.length; i++) {
+						x[i].disabled = true;
+					}
+					document.getElementById("win").innerHTML = "VINCE IL " + vincitore;
+					document.getElementById("win").style.display = "block";
+				}else if(vincitore === "PAREGGIO"){
+					var x = document.getElementsByClassName("celle");
+					var i;
+					for (i = 0; i < x.length; i++) {
+						x[i].disabled = true;
+					}
+					document.getElementById("win").innerHTML = vincitore;
+					document.getElementById("win").style.display = "block";
+				}
+
+			})
+
+		};
 	</script>
-	<script> 
-		function rigioca(){
-		  var x = document.getElementsByClassName("celle");
-		  var i;
-		  for (i = 0; i < x.length; i++) {
-		    x[i].innerHTML = "";
-		    x[i].disabled = false;
-		  }
+	<script>
+		function rigioca() {
+			document.getElementById("win").innerHTML = "";
+			document.getElementById("win").style.display = "none";
+			var x = document.getElementsByClassName("celle");
+			var i;
+			document.getElementById("player").innerHTML = "Giocatore 1";
+			for (i = 0; i < x.length; i++) {
+				x[i].innerHTML = "";
+				x[i].disabled = false;
+			}
 			$.post('GamesController', {
 				nomeGioco : "tris",
 				giocatore : "reset"
 			}, function(data, status) {
-				
+
 			});
 		}
 	</script>

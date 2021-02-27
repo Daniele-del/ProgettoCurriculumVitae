@@ -146,7 +146,7 @@ body {
 						<button class="btn btn-outline-primary"onclick="showCV()">Curriculum Vitae</button>
 					</div>
 					<div class="card mt-3">
-						<button class="btn btn-outline-primary"onclick="location.href='games.html'">Java Mini Game</button>
+						<button class="btn btn-outline-primary"onclick="location.href='games.html'">Java Mini Games</button>
 					</div>
 					<div class="card mt-3">
 						<button class="btn btn-outline-primary">Curriculum Vitae
