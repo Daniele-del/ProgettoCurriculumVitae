@@ -16,6 +16,15 @@ div.relative {
 	float: right;
 }
 
+td.sudokutdnum {
+	border: 2px solid #333;
+	height: 40px;
+	width: 40px;
+	text-align: center;
+	vertical-align: middle;
+	font-size: 25px;
+	cursor: pointer;
+}
 td.sudokutd {
 	border: 2px solid #333;
 	height: 40px;
@@ -34,6 +43,9 @@ td {
 	vertical-align: middle;
 	font-size: 70px;
 	cursor: pointer;
+}
+td:focus{
+	background: #9fbedf;
 }
 
 table.sudokutable {
@@ -211,6 +223,7 @@ div.absolute {
 	right: 200;
 	bottom: 200;
 }
+
 .colonna {
 	float: left;
 	height: 200px;
@@ -221,8 +234,9 @@ div.absolute {
 	text-align: left;
 	padding: 1rem;
 }
+
 .paragrafosudoku {
-	float:left;
+	float: left;
 	text-align: left;
 	padding: 1rem;
 	height: 500px;
@@ -241,6 +255,61 @@ div.absolute {
 	border-radius: .25rem;
 	box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .1), 0 1px 2px 0
 		rgba(0, 0, 0, .06);
+}
+
+.iconamenu {
+	display: inline-block;
+	cursor: pointer;
+}
+
+.bar1, .bar2, .bar3 {
+	width: 35px;
+	height: 5px;
+	background-color: #333;
+	margin: 6px 0;
+	transition: 0.4s;
+}
+
+.change .bar1 {
+	-webkit-transform: rotate(-45deg) translate(-9px, 6px);
+	transform: rotate(-45deg) translate(-9px, 6px);
+}
+
+.change .bar2 {
+	opacity: 0;
+}
+
+.change .bar3 {
+	-webkit-transform: rotate(45deg) translate(-8px, -8px);
+	transform: rotate(45deg) translate(-8px, -8px);
+}
+
+.dropdown {
+	position: relative;
+	display: inline-block;
+}
+
+.dropdown-content {
+	display: none;
+	background-color: #f1f1f1;
+	overflow: auto;
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+	z-index: 1;
+}
+
+.dropdown-content a {
+	color: black;
+	padding: 12px 16px;
+	text-decoration: none;
+	display: block;
+}
+
+.dropdown a:hover {
+	background-color: #ddd;
+}
+
+.show {
+	display: block;
 }
 </style>
 </head>
@@ -294,175 +363,184 @@ div.absolute {
 						<div class="paragrafosudoku">
 							<table class="sudokutable" id="tablesudoku">
 								<tr>
-									<td onclick="javasudoku(this.id)" class="sudokutd" id="cella0"></td>
-									<td onclick="javasudoku(this.id)" class="sudokutd" id="cella1"></td>
-									<td style="border-right: solid" onclick="javasudoku(this.id)"
-										class="sudokutd" id="cella2"></td>
-									<td onclick="javasudoku(this.id)" class="sudokutd" id="cella3"></td>
-									<td onclick="javasudoku(this.id)" class="sudokutd" id="cella4"></td>
-									<td style="border-right: solid" onclick="javasudoku(this.id)"
-										class="sudokutd" id="cella5"></td>
-									<td onclick="javasudoku(this.id)" class="sudokutd" id="cella6"></td>
-									<td onclick="javasudoku(this.id)" class="sudokutd" id="cella7"></td>
-									<td onclick="javasudoku(this.id)" class="sudokutd" id="cella8"></td>
+									<td tabindex="-1" onclick="putid(this.id)" class="sudokutd" id="sudoku0"></td>
+									<td tabindex="-1" onclick="putid(this.id)" class="sudokutd" id="sudoku1"></td>
+									<td tabindex="-1" style="border-right: solid" onclick="putid(this.id)"
+										class="sudokutd" id="sudoku2"></td>
+									<td tabindex="-1" onclick="putid(this.id)" class="sudokutd" id="sudoku3"></td>
+									<td tabindex="-1" onclick="putid(this.id)" class="sudokutd" id="sudoku4"></td>
+									<td tabindex="-1" style="border-right: solid" onclick="putid(this.id)"
+										class="sudokutd" id="sudoku5"></td>
+									<td tabindex="-1" onclick="putid(this.id)" class="sudokutd" id="sudoku6"></td>
+									<td tabindex="-1" onclick="putid(this.id)" class="sudokutd" id="sudoku7"></td>
+									<td tabindex="-1" onclick="putid(this.id)" class="sudokutd" id="sudoku8"></td>
 								</tr>
 								<tr>
-									<td onclick="javasudoku(this.id)" class="sudokutd" id="cella9"></td>
-									<td onclick="javasudoku(this.id)" class="sudokutd" id="cella10"></td>
-									<td style="border-right: solid" onclick="javasudoku(this.id)"
-										class="sudokutd" id="cella11"></td>
-									<td onclick="javasudoku(this.id)" class="sudokutd" id="cella12"></td>
-									<td onclick="javasudoku(this.id)" class="sudokutd" id="cella13"></td>
-									<td style="border-right: solid" onclick="javasudoku(this.id)"
-										class="sudokutd" id="cella14"></td>
-									<td onclick="javasudoku(this.id)" class="sudokutd" id="cella15"></td>
-									<td onclick="javasudoku(this.id)" class="sudokutd" id="cella16"></td>
-									<td onclick="javasudoku(this.id)" class="sudokutd" id="cella17"></td>
+									<td tabindex="-1" onclick="putid(this.id)" class="sudokutd" id="sudoku9"></td>
+									<td tabindex="-1" onclick="putid(this.id)" class="sudokutd" id="sudoku10"></td>
+									<td tabindex="-1" style="border-right: solid" onclick="putid(this.id)"
+										class="sudokutd" id="sudoku11"></td>
+									<td tabindex="-1" onclick="putid(this.id)" class="sudokutd" id="sudoku12"></td>
+									<td tabindex="-1" onclick="putid(this.id)" class="sudokutd" id="sudoku13"></td>
+									<td tabindex="-1" style="border-right: solid" onclick="putid(this.id)"
+										class="sudokutd" id="sudoku14"></td>
+									<td tabindex="-1" onclick="putid(this.id)" class="sudokutd" id="sudoku15"></td>
+									<td tabindex="-1" onclick="putid(this.id)" class="sudokutd" id="sudoku16"></td>
+									<td tabindex="-1" onclick="putid(this.id)" class="sudokutd" id="sudoku17"></td>
 								</tr>
 								<tr>
-									<td style="border-bottom: solid" onclick="javasudoku(this.id)"
-										class="sudokutd" id="cella18"></td>
-									<td style="border-bottom: solid" onclick="javasudoku(this.id)"
-										class="sudokutd" id="cella19"></td>
-									<td style="border-bottom: solid; border-right: solid"
-										onclick="javasudoku(this.id)" class="sudokutd" id="cella20"></td>
-									<td style="border-bottom: solid" onclick="javasudoku(this.id)"
-										class="sudokutd" id="cella21"></td>
-									<td style="border-bottom: solid" onclick="javasudoku(this.id)"
-										class="sudokutd" id="cella22"></td>
-									<td style="border-bottom: solid; border-right: solid"
-										onclick="javasudoku(this.id)" class="sudokutd" id="cella23"></td>
-									<td style="border-bottom: solid" onclick="javasudoku(this.id)"
-										class="sudokutd" id="cella24"></td>
-									<td style="border-bottom: solid" onclick="javasudoku(this.id)"
-										class="sudokutd" id="cella25"></td>
-									<td style="border-bottom: solid" onclick="javasudoku(this.id)"
-										class="sudokutd" id="cella26"></td>
+									<td tabindex="-1" style="border-bottom: solid" onclick="putid(this.id)"
+										class="sudokutd" id="sudoku18"></td>
+									<td tabindex="-1" style="border-bottom: solid" onclick="putid(this.id)"
+										class="sudokutd" id="sudoku19"></td>
+									<td tabindex="-1" style="border-bottom: solid; border-right: solid"
+										onclick="putid(this.id)" class="sudokutd" id="sudoku20"></td>
+									<td tabindex="-1" style="border-bottom: solid" onclick="putid(this.id)"
+										class="sudokutd" id="sudoku21"></td>
+									<td tabindex="-1" style="border-bottom: solid" onclick="putid(this.id)"
+										class="sudokutd" id="sudoku22"></td>
+									<td tabindex="-1" style="border-bottom: solid; border-right: solid"
+										onclick="putid(this.id)" class="sudokutd" id="sudoku23"></td>
+									<td tabindex="-1" style="border-bottom: solid" onclick="putid(this.id)"
+										class="sudokutd" id="sudoku24"></td>
+									<td tabindex="-1" style="border-bottom: solid" onclick="putid(this.id)"
+										class="sudokutd" id="sudoku25"></td>
+									<td tabindex="-1" style="border-bottom: solid" onclick="putid(this.id)"
+										class="sudokutd" id="sudoku26"></td>
 								</tr>
 								<tr>
-									<td onclick="javasudoku(this.id)" class="sudokutd" id="cella27"></td>
-									<td onclick="javasudoku(this.id)" class="sudokutd" id="cella28"></td>
-									<td style="border-right: solid" onclick="javasudoku(this.id)"
-										class="sudokutd" id="cella29"></td>
-									<td onclick="javasudoku(this.id)" class="sudokutd" id="cella30"></td>
-									<td onclick="javasudoku(this.id)" class="sudokutd" id="cella31"></td>
-									<td style="border-right: solid" onclick="javasudoku(this.id)"
-										class="sudokutd" id="cella32"></td>
-									<td onclick="javasudoku(this.id)" class="sudokutd" id="cella33"></td>
-									<td onclick="javasudoku(this.id)" class="sudokutd" id="cella34"></td>
-									<td onclick="javasudoku(this.id)" class="sudokutd" id="cella35"></td>
+									<td tabindex="-1" onclick="putid(this.id)" class="sudokutd" id="sudoku27"></td>
+									<td tabindex="-1" onclick="putid(this.id)" class="sudokutd" id="sudoku28"></td>
+									<td tabindex="-1" style="border-right: solid" onclick="putid(this.id)"
+										class="sudokutd" id="sudoku29"></td>
+									<td tabindex="-1" onclick="putid(this.id)" class="sudokutd" id="sudoku30"></td>
+									<td tabindex="-1" onclick="putid(this.id)" class="sudokutd" id="sudoku31"></td>
+									<td tabindex="-1" style="border-right: solid" onclick="putid(this.id)"
+										class="sudokutd" id="sudoku32"></td>
+									<td tabindex="-1" onclick="putid(this.id)" class="sudokutd" id="sudoku33"></td>
+									<td tabindex="-1" onclick="putid(this.id)" class="sudokutd" id="sudoku34"></td>
+									<td tabindex="-1" onclick="putid(this.id)" class="sudokutd" id="sudoku35"></td>
 								</tr>
 								<tr>
-									<td onclick="javasudoku(this.id)" class="sudokutd" id="cella36"></td>
-									<td onclick="javasudoku(this.id)" class="sudokutd" id="cella37"></td>
-									<td style="border-right: solid" onclick="javasudoku(this.id)"
-										class="sudokutd" id="cella38"></td>
-									<td onclick="javasudoku(this.id)" class="sudokutd" id="cella39"></td>
-									<td onclick="javasudoku(this.id)" class="sudokutd" id="cella40"></td>
-									<td style="border-right: solid" onclick="javasudoku(this.id)"
-										class="sudokutd" id="cella41"></td>
-									<td onclick="javasudoku(this.id)" class="sudokutd" id="cella42"></td>
-									<td onclick="javasudoku(this.id)" class="sudokutd" id="cella43"></td>
-									<td onclick="javasudoku(this.id)" class="sudokutd" id="cella44"></td>
+									<td tabindex="-1" onclick="putid(this.id)" class="sudokutd" id="sudoku36"></td>
+									<td tabindex="-1" onclick="putid(this.id)" class="sudokutd" id="sudoku37"></td>
+									<td tabindex="-1" style="border-right: solid" onclick="putid(this.id)"
+										class="sudokutd" id="sudoku38"></td>
+									<td tabindex="-1" onclick="putid(this.id)" class="sudokutd" id="sudoku39"></td>
+									<td tabindex="-1" onclick="putid(this.id)" class="sudokutd" id="sudoku40"></td>
+									<td tabindex="-1" style="border-right: solid" onclick="putid(this.id)"
+										class="sudokutd" id="sudoku41"></td>
+									<td tabindex="-1" onclick="putid(this.id)" class="sudokutd" id="sudoku42"></td>
+									<td tabindex="-1" onclick="putid(this.id)" class="sudokutd" id="sudoku43"></td>
+									<td tabindex="-1" onclick="putid(this.id)" class="sudokutd" id="sudoku44"></td>
 								</tr>
 								<tr>
-									<td style="border-bottom: solid" onclick="javasudoku(this.id)"
-										class="sudokutd" id="cella45"></td>
-									<td style="border-bottom: solid" onclick="javasudoku(this.id)"
-										class="sudokutd" id="cella46"></td>
-									<td style="border-bottom: solid; border-right: solid"
-										onclick="javasudoku(this.id)" class="sudokutd" id="cella47"></td>
-									<td style="border-bottom: solid" onclick="javasudoku(this.id)"
-										class="sudokutd" id="cella48"></td>
-									<td style="border-bottom: solid" onclick="javasudoku(this.id)"
-										class="sudokutd" id="cella49"></td>
-									<td style="border-bottom: solid; border-right: solid"
-										onclick="javasudoku(this.id)" class="sudokutd" id="cella50"></td>
-									<td style="border-bottom: solid" onclick="javasudoku(this.id)"
-										class="sudokutd" id="cella51"></td>
-									<td style="border-bottom: solid" onclick="javasudoku(this.id)"
-										class="sudokutd" id="cella52"></td>
-									<td style="border-bottom: solid" onclick="javasudoku(this.id)"
-										class="sudokutd" id="cella53"></td>
+									<td tabindex="-1" style="border-bottom: solid" onclick="putid(this.id)"
+										class="sudokutd" id="sudoku45"></td>
+									<td tabindex="-1" style="border-bottom: solid" onclick="putid(this.id)"
+										class="sudokutd" id="sudoku46"></td>
+									<td tabindex="-1" style="border-bottom: solid; border-right: solid"
+										onclick="putid(this.id)" class="sudokutd" id="sudoku47"></td>
+									<td tabindex="-1" style="border-bottom: solid" onclick="putid(this.id)"
+										class="sudokutd" id="sudoku48"></td>
+									<td tabindex="-1" style="border-bottom: solid" onclick="putid(this.id)"
+										class="sudokutd" id="sudoku49"></td>
+									<td tabindex="-1" style="border-bottom: solid; border-right: solid"
+										onclick="putid(this.id)" class="sudokutd" id="sudoku50"></td>
+									<td tabindex="-1" style="border-bottom: solid" onclick="putid(this.id)"
+										class="sudokutd" id="sudoku51"></td>
+									<td tabindex="-1" style="border-bottom: solid" onclick="putid(this.id)"
+										class="sudokutd" id="sudoku52"></td>
+									<td tabindex="-1" style="border-bottom: solid" onclick="putid(this.id)"
+										class="sudokutd" id="sudoku53"></td>
 								</tr>
 								<tr>
-									<td onclick="javasudoku(this.id)" class="sudokutd" id="cella54"></td>
-									<td onclick="javasudoku(this.id)" class="sudokutd" id="cella55"></td>
-									<td style="border-right: solid" onclick="javasudoku(this.id)"
-										class="sudokutd" id="cella56"></td>
-									<td onclick="javasudoku(this.id)" class="sudokutd" id="cella57"></td>
-									<td onclick="javasudoku(this.id)" class="sudokutd" id="cella58"></td>
-									<td style="border-right: solid" onclick="javasudoku(this.id)"
-										class="sudokutd" id="cella59"></td>
-									<td onclick="javasudoku(this.id)" class="sudokutd" id="cella60"></td>
-									<td onclick="javasudoku(this.id)" class="sudokutd" id="cella61"></td>
-									<td onclick="javasudoku(this.id)" class="sudokutd" id="cella62"></td>
+									<td tabindex="-1" onclick="putid(this.id)" class="sudokutd" id="sudoku54"></td>
+									<td tabindex="-1" onclick="putid(this.id)" class="sudokutd" id="sudoku55"></td>
+									<td tabindex="-1" style="border-right: solid" onclick="putid(this.id)"
+										class="sudokutd" id="sudoku56"></td>
+									<td tabindex="-1" onclick="putid(this.id)" class="sudokutd" id="sudoku57"></td>
+									<td tabindex="-1" onclick="putid(this.id)" class="sudokutd" id="sudoku58"></td>
+									<td tabindex="-1" style="border-right: solid" onclick="putid(this.id)"
+										class="sudokutd" id="sudoku59"></td>
+									<td tabindex="-1" onclick="putid(this.id)" class="sudokutd" id="sudoku60"></td>
+									<td tabindex="-1" onclick="putid(this.id)" class="sudokutd" id="sudoku61"></td>
+									<td tabindex="-1" onclick="putid(this.id)" class="sudokutd" id="sudoku62"></td>
 								</tr>
 								<tr>
-									<td onclick="javasudoku(this.id)" class="sudokutd" id="cella63"></td>
-									<td onclick="javasudoku(this.id)" class="sudokutd" id="cella64"></td>
-									<td style="border-right: solid" onclick="javasudoku(this.id)"
-										class="sudokutd" id="cella65"></td>
-									<td onclick="javasudoku(this.id)" class="sudokutd" id="cella66"></td>
-									<td onclick="javasudoku(this.id)" class="sudokutd" id="cella67"></td>
-									<td style="border-right: solid" onclick="javasudoku(this.id)"
-										class="sudokutd" id="cella68"></td>
-									<td onclick="javasudoku(this.id)" class="sudokutd" id="cella69"></td>
-									<td onclick="javasudoku(this.id)" class="sudokutd" id="cella70"></td>
-									<td onclick="javasudoku(this.id)" class="sudokutd" id="cella71"></td>
+									<td tabindex="-1" onclick="putid(this.id)" class="sudokutd" id="sudoku63"></td>
+									<td tabindex="-1" onclick="putid(this.id)" class="sudokutd" id="sudoku64"></td>
+									<td tabindex="-1" style="border-right: solid" onclick="putid(this.id)"
+										class="sudokutd" id="sudoku65"></td>
+									<td tabindex="-1" onclick="putid(this.id)" class="sudokutd" id="sudoku66"></td>
+									<td tabindex="-1" onclick="putid(this.id)" class="sudokutd" id="sudoku67"></td>
+									<td tabindex="-1" style="border-right: solid" onclick="putid(this.id)"
+										class="sudokutd" id="sudoku68"></td>
+									<td tabindex="-1" onclick="putid(this.id)" class="sudokutd" id="sudoku69"></td>
+									<td tabindex="-1" onclick="putid(this.id)" class="sudokutd" id="sudoku70"></td>
+									<td tabindex="-1" onclick="putid(this.id)" class="sudokutd" id="sudoku71"></td>
 								</tr>
 								<tr>
-									<td onclick="javasudoku(this.id)" class="sudokutd" id="cella72"></td>
-									<td onclick="javasudoku(this.id)" class="sudokutd" id="cella73"></td>
-									<td style="border-right: solid" onclick="javasudoku(this.id)"
-										class="sudokutd" id="cella74"></td>
-									<td onclick="javasudoku(this.id)" class="sudokutd" id="cella75"></td>
-									<td onclick="javasudoku(this.id)" class="sudokutd" id="cella76"></td>
-									<td style="border-right: solid" onclick="javasudoku(this.id)"
-										class="sudokutd" id="cella77"></td>
-									<td onclick="javasudoku(this.id)" class="sudokutd" id="cella78"></td>
-									<td onclick="javasudoku(this.id)" class="sudokutd" id="cella79"></td>
-									<td onclick="javasudoku(this.id)" class="sudokutd" id="cella80"></td>
+									<td tabindex="-1" onclick="putid(this.id)" class="sudokutd" id="sudoku72"></td>
+									<td tabindex="-1" onclick="putid(this.id)" class="sudokutd" id="sudoku73"></td>
+									<td tabindex="-1" style="border-right: solid" onclick="putid(this.id)"
+										class="sudokutd" id="sudoku74"></td>
+									<td tabindex="-1" onclick="putid(this.id)" class="sudokutd" id="sudoku75"></td>
+									<td tabindex="-1" onclick="putid(this.id)" class="sudokutd" id="sudoku76"></td>
+									<td tabindex="-1" style="border-right: solid" onclick="putid(this.id)"
+										class="sudokutd" id="sudoku77"></td>
+									<td tabindex="-1" onclick="putid(this.id)" class="sudokutd" id="sudoku78"></td>
+									<td tabindex="-1" onclick="putid(this.id)" class="sudokutd" id="sudoku79"></td>
+									<td tabindex="-1" onclick="putid(this.id)" class="sudokutd" id="sudoku80"></td>
 								</tr>
 							</table>
 							<table style="margin-left: 15%">
 								<tr>
 									<td style="border: solid" onclick="putnumber(this.id)"
-										class="sudokutd" id="numero1">1</td>
+										class="sudokutdnum" id="numero1">1</td>
 									<td style="border: solid" onclick="putnumber(this.id)"
-										class="sudokutd" id="numero2">2</td>
+										class="sudokutdnum" id="numero2">2</td>
 									<td style="border: solid" onclick="putnumber(this.id)"
-										class="sudokutd" id="numero3">3</td>
+										class="sudokutdnum" id="numero3">3</td>
 									<td style="border: solid" onclick="putnumber(this.id)"
-										class="sudokutd" id="numero4">4</td>
+										class="sudokutdnum" id="numero4">4</td>
 									<td style="border: solid" onclick="putnumber(this.id)"
-										class="sudokutd" id="numero5">5</td>
+										class="sudokutdnum" id="numero5">5</td>
 									<td style="border: solid" onclick="putnumber(this.id)"
-										class="sudokutd" id="numero6">6</td>
+										class="sudokutdnum" id="numero6">6</td>
 									<td style="border: solid" onclick="putnumber(this.id)"
-										class="sudokutd" id="numero7">7</td>
+										class="sudokutdnum" id="numero7">7</td>
 									<td style="border: solid" onclick="putnumber(this.id)"
-										class="sudokutd" id="numero8">8</td>
+										class="sudokutdnum" id="numero8">8</td>
 									<td style="border: solid" onclick="putnumber(this.id)"
-										class="sudokutd" id="numero9">9</td>
+										class="sudokutdnum" id="numero9">9</td>
 									<td
 										style="border-top: white; border-bottom: white; cursor: default;"
-										class="sudokutd" id="blank"></td>
-									<td style="border: solid" onclick="putnumber(this.id)"
-										class="sudokutd" id="cancel">X</td>
+										class="sudokutdnum" id="blank"></td>
+									<td style="border: solid" onclick="delnumber()"
+										class="sudokutdnum" id="cancel">X</td>
 								</tr>
 							</table>
 							<div class="endgame" id="win"></div>
+							<div class="divplayer" id="putnum"></div>
 						</div>
 						<div class="colonna">
+							<div class="dropdown">
 							<br>
-							<button style="padding 3%;" class="btn btn-outline-primary" id="b_sudoku_gioca"onClick="rigiocasudoku()">Menu</button>
-							<br>
-							<br>
-							<button class="btn btn-outline-primary" id="b_sudoku_gioca"onClick="rigiocasudoku()">Submit</button>
-							<br>
-							<br>
-							<button class="btn btn-outline-primary" id="b_sudoku_gioca"onClick="rigiocasudoku()">Rigioca</button>
+							<div class="iconamenu" onclick="menu(this)">
+								<div class="bar1"></div>
+								<div class="bar2"></div>
+								<div class="bar3"></div>
+							</div>
+							<div style="cursor: pointer;" id="myDropdown" class="dropdown-content">
+								<a onclick="sudokurigioca()">Rigioca</a> 
+								<a onclick="sudokusoluzione()">Soluzione</a> 
+								<a onclick="sudokureset()">Resetta</a>
+							</div>
+							</div>
+							<br> <br>
+							<button class="btn btn-outline-primary" id="b_sudoku_gioca"
+								onClick="sudokusubmit()">Submit</button>
 						</div>
 					</div>
 				</div>
@@ -477,6 +555,38 @@ div.absolute {
 		src="http://netdna.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 	<script type="text/javascript">
 		
+	</script>
+	<script>
+		function sudokureset(){
+			var x = document.getElementsByClassName("sudokutd");
+			var i;
+			for (i = 0; i < x.length; i++) {
+				x[i].innerHTML = "";				
+			}
+		}
+	</script>
+	<script> 
+		function putid(clicked_id){	
+			document.getElementById("putnum").innerHTML = clicked_id;				
+		}
+	</script>
+		<script> 
+		function putnumber(clicked_id){				
+			var numero = document.getElementById(clicked_id).innerHTML;
+			var idputnum = document.getElementById("putnum").innerHTML;	
+			document.getElementById(document.getElementById("putnum").innerHTML).innerHTML = numero;			
+		}
+	</script>
+	<script> 
+		function delnumber(){	
+			document.getElementById(document.getElementById("putnum").innerHTML).innerHTML = "";	
+		}
+	</script>
+	<script>
+		function menu(x) {
+			x.classList.toggle("change");
+			document.getElementById("myDropdown").classList.toggle("show");
+		}
 	</script>
 	<script>
 		function showTris() {
