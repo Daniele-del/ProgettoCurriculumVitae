@@ -557,6 +557,24 @@ div.absolute {
 		
 	</script>
 	<script>
+		function sudokusubmit(){
+			var matrix = document.getElementsByClassName("sudokutd");
+	
+			matrix.forEach(invia)			
+		}	
+		function invia(){
+			$.post('GamesController', {
+				nomeGioco : "sudoku",
+				key : matrix.id,
+				value : matrix.innerHTML
+			}, function(data, status) {
+
+			});
+		}
+		
+		
+	</script>
+	<script>
 		function sudokureset(){
 			var x = document.getElementsByClassName("sudokutd");
 			var i;

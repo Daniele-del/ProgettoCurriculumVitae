@@ -122,6 +122,10 @@ body {
 		rgba(0, 0, 0, .06);
 }
 
+#CVdl:hover{
+	background-color: #fff;
+}
+
 
 
 </style>
@@ -149,8 +153,7 @@ body {
 						<button class="btn btn-outline-primary"onclick="location.href='games.html'">Java Mini Games</button>
 					</div>
 					<div class="card mt-3">
-						<button class="btn btn-outline-primary">Curriculum Vitae
-							PDF</button>
+						<div class="btn btn-outline-primary" id="CVdl"> <a class="CVDrive" href="https://drive.google.com/file/d/12FohwoPMBkXUx6fsKObdL_sFWeGXZ6II/view?usp=sharing">Curriculum VitaePDF</a></div>
 					</div>
 					<div class="card mt-3">
 						<ul class="list-group list-group-flush">
