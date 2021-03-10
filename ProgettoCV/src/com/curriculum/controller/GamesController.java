@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.JSONArray;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -29,13 +30,12 @@ public class GamesController extends HttpServlet {
 	private String arrays;
 
 	// variabili generici
-	private String winner;
+
 	private String nomeGioco;
 
 	// variabili tris
+
 	int count = 0;
-	private String giocatore;
-	private String nomeCella;
 	private String[] tris = { "cella0", "cella1", "cella2", "cella3", "cella4", "cella5", "cella6", "cella7",
 			"cella8" };
 	private String[] trisReset = { "cella0", "cella1", "cella2", "cella3", "cella4", "cella5", "cella6", "cella7",
@@ -67,6 +67,9 @@ public class GamesController extends HttpServlet {
 		nomeGioco = req.getParameter("nomeGioco");
 
 		if (nomeGioco.equals("tris")) {
+			String winner;
+			String giocatore;
+			String nomeCella;
 			nomeCella = req.getParameter("nomeCella");
 			giocatore = req.getParameter("giocatore");
 			if (giocatore.equals("reset")) {
@@ -74,20 +77,28 @@ public class GamesController extends HttpServlet {
 				count = 0;
 				winner = null;
 			} else {
-				metodoTris();
+				winner = metodoTris(nomeCella, giocatore);
 			}
-		}
-		if (winner != null) {
-			resp.getWriter().write(winner);
+			if (winner != null) {
+				resp.getWriter().write(winner);
+			}
 			String destination = "games.jsp";
 			req.getRequestDispatcher(destination);
 		}
 
 		if (nomeGioco.equals("sudoku")) {
-			arrays = req.getParameter("matrix");
-			System.out.println(arrays);
-			String risultato = metodoSudoku();
-			resp.getWriter().write(risultato);
+			if (req.getParameter("reset") != null && req.getParameter("reset").equals("soluzione")) {
+				int tmpCount = countSudoku == 0 ? NSUDOKU - 1 : countSudoku-1;
+				showSolution(tmpCount);
+				resp.getWriter().write(json);
+
+			} else {
+				arrays = req.getParameter("matrix");
+				System.out.println(arrays);
+				String risultato = metodoSudoku();
+				resp.getWriter().write(risultato);
+			}
+
 			String destination = "games.jsp";
 			req.getRequestDispatcher(destination);
 
@@ -101,12 +112,32 @@ public class GamesController extends HttpServlet {
 				}
 				System.out.println(req.getParameter("reset") + " param value");
 			}
-			numeriStart();
-			resp.getWriter().write(json);
+			if (req.getParameter("reset") != null && req.getParameter("reset").equals("all")) {
+				resetSudokuVar();
+			} else {
+				numeriStart();
+				resp.getWriter().write(json);
+			}
+
 			String destination = "games.jsp";
 			req.getRequestDispatcher(destination);
 		}
 
+	}
+
+	private void showSolution(int tmpCount) {
+		ArrayList <String> sol = (ArrayList<String>) sudokus.get(tmpCount).getSoluzione();
+		String jsonStr = JSONArray.toJSONString(sol);
+		System.out.println(jsonStr);
+		Map<String, String> jsonSol = new HashMap<>();
+		jsonSol.put("soluzione", jsonStr);
+		mapToJson(jsonSol);
+	}
+
+	private void resetSudokuVar() {
+		json = null;
+		submitList.clear();
+		countSudoku = 0;
 	}
 
 	private void numeriStart() {
@@ -129,7 +160,8 @@ public class GamesController extends HttpServlet {
 		}
 	}
 
-	public void metodoTris() {
+	public String metodoTris(String nomeCella, String giocatore) {
+		String winner = null;
 		for (int i = 0; i < tris.length; i++) {
 			if (tris[i].equals(nomeCella)) {
 				tris[i] = giocatore;
@@ -164,6 +196,7 @@ public class GamesController extends HttpServlet {
 		if (count == 9 && winner == null) {
 			winner = "PAREGGIO";
 		}
+		return winner;
 	}
 
 	public String metodoSudoku() {

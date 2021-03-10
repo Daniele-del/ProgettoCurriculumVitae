@@ -16,6 +16,8 @@ div.relative {
 	float: right;
 }
 
+
+
 td.sudokutdnum {
 	border: 2px solid #333;
 	height: 40px;
@@ -27,6 +29,7 @@ td.sudokutdnum {
 }
 
 td.sudokutd {
+
 	border: 2px solid #333;
 	height: 40px;
 	width: 40px;
@@ -46,8 +49,8 @@ td {
 	cursor: pointer;
 }
 
-td:focus {
-	background: #9fbedf;
+td.sudokutd:focus {
+	background: #b366ff;
 }
 
 table.sudokutable {
@@ -96,6 +99,7 @@ table tr td:first-child {
 table tr td:last-child {
 	border-right: 0;
 }
+
 .startgame {
 	cursor: pointer;
 	display: block;
@@ -116,8 +120,9 @@ table tr td:last-child {
 	border: 0 solid rgba(0, 0, 0, .125);
 	border-radius: .25rem;
 	box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .1), 0 1px 2px 0
-	rgba(0, 0, 0, .06);
+		rgba(0, 0, 0, .06);
 }
+
 .endgame {
 	display: none;
 	width: 200px;
@@ -335,6 +340,79 @@ div.absolute {
 .show {
 	display: block;
 }
+#msg {
+	color: #fff; 
+	font-style: italic;  
+	font-size: 20px;  
+	font-weight: bold; 
+	text-align: center;
+	padding-top: 10px;
+	height: 75px;
+  }
+ #wave-container{
+ 	height : 200px;
+ 	word-wrap: break-word;
+	background-color: #fff;
+	background-clip: border-box;
+	border: 2px solid blue;
+	border-radius: .25rem;
+	box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .1), 0 1px 2px 0
+		rgba(0, 0, 0, .06);
+ }
+.header {
+  position:relative;
+  text-align:center;
+  background: linear-gradient(60deg, rgba(84,58,183,1) 0%, rgba(0,172,193,1) 100%);
+  color:white;
+}
+.inner-header {
+  width:100%;
+  margin: 0;
+  padding: 0;
+}
+
+.flex { 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.waves {
+  position:relative;
+  width: 100%;
+  min-height:80px;
+  max-height:120px;
+}
+
+.parallax > use {
+  animation: move-forever 25s cubic-bezier(.55,.5,.45,.5)     infinite;
+}
+.parallax > use:nth-child(1) {
+  animation-delay: -2s;
+  animation-duration: 7s;
+}
+.parallax > use:nth-child(2) {
+  animation-delay: -3s;
+  animation-duration: 10s;
+}
+.parallax > use:nth-child(3) {
+  animation-delay: -4s;
+  animation-duration: 13s;
+}
+.parallax > use:nth-child(4) {
+  animation-delay: -5s;
+  animation-duration: 20s;
+}
+@keyframes move-forever {
+  0% {
+   transform: translate3d(-90px,0,0);
+  }
+  100% { 
+    transform: translate3d(85px,0,0);
+  }
+}
+}
 </style>
 </head>
 <body>
@@ -343,8 +421,8 @@ div.absolute {
 			<div class="row gutters-sm">
 				<div class="col-md-4 mb-3">
 					<div class="card mt-3">
-						<button class="btn btn-outline-primary"
-							onclick="location.href='index.jsp'">Torna al CV</button>
+						<button class="btn btn-outline-primary" onclick="redirect()">Torna
+							al CV</button>
 					</div>
 					<div class="card mt-3">
 						<button class="btn btn-outline-primary" onclick="showTris()">Tic
@@ -353,7 +431,28 @@ div.absolute {
 					<div class="card mt-3">
 						<button class="btn btn-outline-primary" onclick="showSudoku()">Sudoku</button>
 					</div>
-					<div id="prova"></div>
+					<br><br>
+<div id="wave-container">				
+<div class="header">
+<div class="inner-header flex">
+<div id="msg"></div>
+</div>
+<div>
+<svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+<defs>
+<path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+</defs>
+<g class="parallax">
+<use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(255,255,255,0.7" />
+<use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255,255,255,0.5)" />
+<use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(255,255,255,0.3)" />
+<use xlink:href="#gentle-wave" x="48" y="7" fill="#fff" />
+</g>
+</svg>
+</div>
+</div>
+</div>
 				</div>
 				<div class="col-md-8">
 					<div id="DivTris" class="cv-block">
@@ -610,17 +709,20 @@ div.absolute {
 									<div class="bar2"></div>
 									<div class="bar3"></div>
 								</div>
-								<div style="cursor: pointer; pointer-events:none;" id="MenuDropdown"
-									class="dropdown-content">
+								<div style="cursor: pointer; pointer-events: none;"
+									id="MenuDropdown" class="dropdown-content">
 									<a onclick="sudokureset(false)">Rigioca</a> <a
 										onclick="sudokusoluzione()">Soluzione</a> <a
 										onclick="sudokureset(true)">Resetta</a>
 								</div>
 							</div>
 							<br> <br>
-							<button style="cursor: pointer; pointer-events:none;" class="btn btn-outline-primary" id="b_sudoku_gioca"
+							<button style="cursor: pointer; pointer-events: none;"
+								class="btn btn-outline-primary" id="b_sudoku_gioca"
 								onClick="sudokusubmit()">Submit</button>
+								<br><br><br>
 						</div>
+						
 					</div>
 				</div>
 			</div>
@@ -636,37 +738,31 @@ div.absolute {
 		
 	</script>
 	<script>
-		function startsudoku(){
+		function startsudoku() {
 			document.getElementById("giocasudoku").style.display = "none";
-			document.getElementById("tablesudoku").style.pointerEvents = "auto";	
-			var z = document.getElementsByClassName("sudokutd");
-			for(var k = 0; k < z.lenght; k++){
-				z[k].disabled = false;
-			}
+			document.getElementById("tablesudoku").style.pointerEvents = "auto";
 			document.getElementById("MenuDropdown").style.pointerEvents = "auto";
 			document.getElementById("b_sudoku_gioca").style.pointerEvents = "auto";
-			
-		
+
 			$.post('GamesController', {
 				nomeGioco : "startSudoku"
-			},function(data, status) {
+			}, function(data, status) {
 				var json = JSON.parse(data);
 				var x;
-				for (x in json){
+				for (x in json) {
 					document.getElementById(x).innerHTML = json[x];
 					document.getElementById(x).style.background = "#9fbedf";
-					document.getElementById(x).disabled = true;
+					document.getElementById(x).style.pointerEvents = "none";
 				}
 
-			});	
-			
+			});
 
 		}
 	</script>
 	<script>
 		function sudokusubmit() {
 			var x = document.getElementsByClassName("sudokutd");
-			var i=0;
+			var i = 0;
 			var listanumeri = new Array();
 
 			$('#tablesudoku tr').each(function() {
@@ -681,36 +777,41 @@ div.absolute {
 				nomeGioco : "sudoku",
 				matrix : numToString
 			}, function(data, status) {
-				alert(data);
-				
+				document.getElementById("msg").innerHTML = data;
+
 			});
 		}
 	</script>
 	<script>
 		function sudokureset(resetVal) {
-//			document.getElementById("giocasudoku").style.display = "block";
-			document.getElementById("tablesudoku").style.pointerEvents = "none";
-			document.getElementById("tablesudoku").style.pointerEvents = "auto";	
+			document.getElementById("msg").innerHTML = "";
+			document.getElementById("b_sudoku_gioca").disabled = false;
+			document.getElementById("putnum").innerHTML = "";
 			var x = document.getElementsByClassName("sudokutd");
 			var i;
 			for (i = 0; i < x.length; i++) {
 				x[i].innerHTML = "";
 				x[i].style.background = "";
-				x[i].disabled = false;
+				if(resetVal === true || resetVal === false){
+					x[i].style.pointerEvents = "auto";
+				}			
 			}
 			$.post('GamesController', {
 				nomeGioco : "startSudoku",
 				reset : resetVal
-			},function(data, status) {
+			}, function(data, status) {
+				if (resetVal === "all") {
+					return;
+				}
 				var json = JSON.parse(data);
 				var x;
-				for (x in json){
+				for (x in json) {
 					document.getElementById(x).innerHTML = json[x];
 					document.getElementById(x).style.background = "#9fbedf";
-					document.getElementById(x).disabled = true;
+					document.getElementById(x).style.pointerEvents = "none";
 				}
 
-			});	
+			});
 		}
 	</script>
 	<script>
@@ -740,6 +841,7 @@ div.absolute {
 	</script>
 	<script>
 		function showTris() {
+			resetAll();
 			var x = document.getElementById("DivTris");
 			var y = document.getElementById("DivSudoku");
 			y.style.display = "none";
@@ -747,7 +849,8 @@ div.absolute {
 		}
 	</script>
 	<script>
-		function showSudoku() {
+		function showSudoku() {			
+			resetAll();
 			var x = document.getElementById("DivSudoku");
 			var y = document.getElementById("DivTris");
 			y.style.display = "none";
@@ -761,14 +864,13 @@ div.absolute {
 			var cella = clicked_id;
 			if (giocatore === "Giocatore 1") {
 				document.getElementById(clicked_id).innerHTML = "X";
-				document.getElementById(clicked_id).disabled = true;
+				document.getElementById(clicked_id).style.pointerEvents = "none";
 				document.getElementById("player").innerHTML = "Giocatore 2";
 			} else {
 				document.getElementById(clicked_id).innerHTML = "O";
-				document.getElementById(clicked_id).disabled = true;
+				document.getElementById(clicked_id).style.pointerEvents = "none";
 				document.getElementById("player").innerHTML = "Giocatore 1";
 			}
-
 			$
 					.post('GamesController', {
 						nomeGioco : "tris",
@@ -786,7 +888,7 @@ div.absolute {
 											.getElementsByClassName("celle");
 									var i;
 									for (i = 0; i < x.length; i++) {
-										x[i].disabled = true;
+										x[i].style.pointerEvents = "none";
 									}
 									document.getElementById("win").innerHTML = "VINCE IL "
 											+ vincitore;
@@ -796,7 +898,7 @@ div.absolute {
 											.getElementsByClassName("celle");
 									var i;
 									for (i = 0; i < x.length; i++) {
-										x[i].disabled = true;
+										x[i].style.pointerEvents = "none";
 									}
 									document.getElementById("win").innerHTML = vincitore;
 									document.getElementById("win").style.display = "block";
@@ -815,7 +917,7 @@ div.absolute {
 			document.getElementById("player").innerHTML = "Giocatore 1";
 			for (i = 0; i < x.length; i++) {
 				x[i].innerHTML = "";
-				x[i].disabled = false;
+				x[i].style.pointerEvents = "auto";
 			}
 			$.post('GamesController', {
 				nomeGioco : "tris",
@@ -824,6 +926,41 @@ div.absolute {
 
 			});
 		}
+	</script>
+	<script>
+		function redirect() {
+			resetAll();
+			location.href = 'index.jsp';
+		}
+	</script>
+	<script>
+		function resetAll() {
+			rigioca();
+			sudokureset("all");
+			document.getElementById("giocasudoku").style.display = "block";
+			document.getElementById("MenuDropdown").style.pointerEvents = "none";
+			document.getElementById("b_sudoku_gioca").style.pointerEvents = "none";
+
+		}
+	</script>
+	<script>
+		function sudokusoluzione() {
+			document.getElementById("b_sudoku_gioca").disabled = true;
+			$.post('GamesController', {
+				nomeGioco : "sudoku",
+				reset : "soluzione"
+			}, function(data, status) {
+
+				var json = JSON.parse(data);
+				var sol = JSON.parse(json.soluzione);				
+				sol.forEach(ciclo);
+			});
+		}
+		function ciclo(value,index,array){
+			var tds = document.getElementsByClassName("sudokutd");
+				tds[index].innerHTML = value;
+			}
+			
 	</script>
 </body>
 </html>
