@@ -24,31 +24,21 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Controller
 public class GamesController extends HttpServlet {
 	private static final int NSUDOKU = 5;
-
 	private static final long serialVersionUID = 1L;
-
 	private String arrays;
-
-	// variabili generici
-
 	private String nomeGioco;
-
-	// variabili tris
-
 	int count = 0;
 	private String[] tris = { "cella0", "cella1", "cella2", "cella3", "cella4", "cella5", "cella6", "cella7",
 			"cella8" };
 	private String[] trisReset = { "cella0", "cella1", "cella2", "cella3", "cella4", "cella5", "cella6", "cella7",
 			"cella8" };
 
-	// variabili sudoku
 	String json = null;
 	private List<Sudoku> sudokus = new LinkedList<>();
 	private List<String> submitList = new ArrayList<>();
 	private int countSudoku = 0;
 
 	public GamesController() {
-		// mi creo i sudoku e li aggiungo alla lista
 		for (int i = 0; i < NSUDOKU; i++) {
 			sudokus.add(new Sudoku());
 		}
@@ -88,13 +78,12 @@ public class GamesController extends HttpServlet {
 
 		if (nomeGioco.equals("sudoku")) {
 			if (req.getParameter("reset") != null && req.getParameter("reset").equals("soluzione")) {
-				int tmpCount = countSudoku == 0 ? NSUDOKU - 1 : countSudoku-1;
+				int tmpCount = countSudoku == 0 ? NSUDOKU - 1 : countSudoku - 1;
 				showSolution(tmpCount);
 				resp.getWriter().write(json);
 
 			} else {
 				arrays = req.getParameter("matrix");
-				System.out.println(arrays);
 				String risultato = metodoSudoku();
 				resp.getWriter().write(risultato);
 			}
@@ -110,7 +99,6 @@ public class GamesController extends HttpServlet {
 				} else {
 					countSudoku--;
 				}
-				System.out.println(req.getParameter("reset") + " param value");
 			}
 			if (req.getParameter("reset") != null && req.getParameter("reset").equals("all")) {
 				resetSudokuVar();
@@ -126,9 +114,8 @@ public class GamesController extends HttpServlet {
 	}
 
 	private void showSolution(int tmpCount) {
-		ArrayList <String> sol = (ArrayList<String>) sudokus.get(tmpCount).getSoluzione();
+		ArrayList<String> sol = (ArrayList<String>) sudokus.get(tmpCount).getSoluzione();
 		String jsonStr = JSONArray.toJSONString(sol);
-		System.out.println(jsonStr);
 		Map<String, String> jsonSol = new HashMap<>();
 		jsonSol.put("soluzione", jsonStr);
 		mapToJson(jsonSol);
@@ -154,7 +141,6 @@ public class GamesController extends HttpServlet {
 
 		try {
 			json = objectMapper.writeValueAsString(initialTab);
-			System.out.println(json);
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}
@@ -202,8 +188,6 @@ public class GamesController extends HttpServlet {
 	public String metodoSudoku() {
 		String finalResult = "";
 		boolean splitResult = splitterSubmit();
-		System.out.println(sudokus.get(0).getSoluzione());
-		System.out.println(submitList);
 		if (!splitResult) {
 			finalResult = "Sudoku incompleto";
 			return finalResult;
@@ -213,8 +197,6 @@ public class GamesController extends HttpServlet {
 			finalResult = "Tutto giusto! Complimenti!";
 		} else {
 			finalResult = "Sono presenti errori";
-			// qui ti chiamerai un metodo che manda a frontend la lista di sbagliati da
-			// evidenziare, o te ne sbatti gli dice che è sbagliato e si arrangia, fai te
 		}
 		return finalResult;
 	}

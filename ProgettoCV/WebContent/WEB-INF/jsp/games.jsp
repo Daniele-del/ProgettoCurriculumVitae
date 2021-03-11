@@ -16,8 +16,6 @@ div.relative {
 	float: right;
 }
 
-
-
 td.sudokutdnum {
 	border: 2px solid #333;
 	height: 40px;
@@ -359,6 +357,12 @@ div.absolute {
 	box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .1), 0 1px 2px 0
 		rgba(0, 0, 0, .06);
  }
+  @import url(//fonts.googleapis.com/css?family=Lato:300:400);
+
+body {
+  margin:0;
+}
+
 .header {
   position:relative;
   text-align:center;
@@ -371,7 +375,7 @@ div.absolute {
   padding: 0;
 }
 
-.flex { 
+.flex {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -411,7 +415,6 @@ div.absolute {
   100% { 
     transform: translate3d(85px,0,0);
   }
-}
 }
 </style>
 </head>
