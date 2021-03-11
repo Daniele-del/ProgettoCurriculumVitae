@@ -746,6 +746,11 @@ viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
 			document.getElementById("tablesudoku").style.pointerEvents = "auto";
 			document.getElementById("MenuDropdown").style.pointerEvents = "auto";
 			document.getElementById("b_sudoku_gioca").style.pointerEvents = "auto";
+			var x = document.getElementsByClassName("sudokutd");
+			var i = 0;
+			for (i = 0; i < x.length; i++) {				
+					x[i].style.pointerEvents = "auto";					
+			}
 
 			$.post('GamesController', {
 				nomeGioco : "startSudoku"
@@ -797,6 +802,8 @@ viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
 				x[i].style.background = "";
 				if(resetVal === true || resetVal === false){
 					x[i].style.pointerEvents = "auto";
+				} else {
+					x[i].style.pointerEvents = "none";
 				}			
 			}
 			$.post('GamesController', {
