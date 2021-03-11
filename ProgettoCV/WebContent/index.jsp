@@ -153,7 +153,7 @@ body {
 						<button class="btn btn-outline-primary"onclick="location.href='games.html'">Java Mini Games</button>
 					</div>
 					<div class="card mt-3">
-						<div class="btn btn-outline-primary" id="CVdl"> <a class="CVDrive" href="https://drive.google.com/file/d/125W3_7mbQsqYZrwCv_h9PEKHRiLCFmuy/view?usp=sharing">Curriculum VitaePDF</a></div>
+						<div class="btn btn-outline-primary" id="CVdl"> <a class="CVDrive" href="https://drive.google.com/file/d/14W1-AlrgTEoEohfMy129MFVIvbkg9do1/view?usp=sharing">Curriculum VitaePDF</a></div>
 					</div>
 					<div class="card mt-3">
 						<ul class="list-group list-group-flush">

@@ -77,14 +77,15 @@ public class GamesController extends HttpServlet {
 		}
 
 		if (nomeGioco.equals("sudoku")) {
+			int tmpCount = countSudoku == 0 ? NSUDOKU - 1 : countSudoku - 1;
 			if (req.getParameter("reset") != null && req.getParameter("reset").equals("soluzione")) {
-				int tmpCount = countSudoku == 0 ? NSUDOKU - 1 : countSudoku - 1;
+
 				showSolution(tmpCount);
 				resp.getWriter().write(json);
 
 			} else {
 				arrays = req.getParameter("matrix");
-				String risultato = metodoSudoku();
+				String risultato = metodoSudoku(tmpCount);
 				resp.getWriter().write(risultato);
 			}
 
@@ -185,7 +186,7 @@ public class GamesController extends HttpServlet {
 		return winner;
 	}
 
-	public String metodoSudoku() {
+	public String metodoSudoku(int currentSudoku) {
 		String finalResult = "";
 		boolean splitResult = splitterSubmit();
 		if (!splitResult) {
@@ -193,7 +194,7 @@ public class GamesController extends HttpServlet {
 			return finalResult;
 		}
 
-		if (splitResult == true && sudokus.get(0).getSoluzione().equals(submitList)) {
+		if (splitResult == true && sudokus.get(currentSudoku).getSoluzione().equals(submitList)) {
 			finalResult = "Tutto giusto! Complimenti!";
 		} else {
 			finalResult = "Sono presenti errori";
